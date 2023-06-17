@@ -7,38 +7,34 @@ const options = {
     key:fs.readFileSync('./config/key.pem'),
     cert:fs.readFileSync('./config/cert.pem')
 }
-
 const first = fs.readFileSync('./config/ca.key','utf-8');
-
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.text());
 
-//para el logueo
-app.post('/login',(req,res)=>{
+//LOGIN
+app.get('/login/:usuario/:clave',(req,res)=>{
     const salida = {mensaje:"Usuario conectado con exito",continuar:1,datos:{idUsuario:1,nombre:"Farez Prieto",email:"kyo20052@gmail.com"}}
     res.send(salida);
 });
-
 //USUARIOS
-app.get('/buscaUsuarios/:busqueda',(req,res)=>{
-  const salida = {mensaje:"Lista de usuarios encontrados",continuar:1,datos:[{idUsuario:1,nombres:"Farez Prieto",idPerfil:1,nombrePerfil:"Administrador",idEmpresa:1,codigoAcceso:"2132"}]}
+app.get('/usuarios/:busqueda',(req,res)=>{
+  const salida = {mensaje:"Lista de usuarios encontrados",continuar:1,datos:[{idUsuario:1,nombres:"Farez Prieto",idPerfil:1,nombrePerfil:"Administrador",idEmpresa:1,codigoAcceso:"2132",fechaVencimiento:"2023-06-16"}]}
   res.send(salida);
 });
-app.post('/guardaUsuarios',(req,res)=>{
+app.post('/usuarios',(req,res)=>{
   console.log(req.body);
   const salida = {mensaje:"Usuario agregado de manera exitosa",continuar:1,datos:[]}
   res.send(salida);
 });
-app.patch('/editaUsuarios',(req,res)=>{
+app.put('/usuarios',(req,res)=>{
   console.log(req.body);
   const salida = {mensaje:"El usuario se ha editado de manera exitosa",continuar:1,datos:[]}
   res.send(salida);
 });
-
-app.delete('/eliminaUsuario/:idUsuario',(req,res)=>{
+app.delete('/usuarios/:idUsuario',(req,res)=>{
   //respuesta correcta
   const salida = {mensaje:"El usuario se ha eliminado de manera exitosa",continuar:1,datos:[]}
   //respuesta de error
@@ -48,8 +44,9 @@ app.delete('/eliminaUsuario/:idUsuario',(req,res)=>{
 
 
 //LISTADOS GENERALES
+
 //listado de tipos de documentos
-app.get('/getTiposDocumento',(req,res)=>{
+app.get('/tiposDocumento',(req,res)=>{
 
   //lista de documentos
   const tiposDocumento = [
@@ -68,9 +65,8 @@ app.get('/getTiposDocumento',(req,res)=>{
   //const salida = {mensaje:"El usuario no se ha podido eliminar, intente de nuevo más tarde",continuar:0,datos:[]}
   res.send(salida);
 });
-
 //listado de persiles
-app.get('/getPerfiles',(req,res)=>{
+app.get('/perfiles',(req,res)=>{
 
   //lista de documentos
   const tiposDocumento = [
@@ -91,84 +87,8 @@ app.get('/getPerfiles',(req,res)=>{
 });
 
 
-//listado de paises
-app.get('/getPaises',(req,res)=>{
-  const paises = [
-    {
-      idPais:1,
-      nombrePais:'Colombia'
-    },
-    {
-      idPais:2,
-      nombrePais:'Venezuela'
-    },
-    {
-      idPais:3,
-      nombrePais:'Panamá'
-    }
-  ];
-
-  //respuesta correcta
-  const salida = {mensaje:"Listado de paises",continuar:1,datos:paises}
-  //respuesta de error
-  //const salida = {mensaje:"No hay paises para consultar",continuar:0,datos:[]}
-  res.send(salida);
-
-});
-//listado de ciudades por país
-app.get('/getCiudades/:idPais',(req,res)=>{
-  const ciudades = [
-    {
-      idCiudad:1,
-      idPais:1,
-      nombreCiudad:'Bogotá'
-    },
-    {
-      idCiudad:2,
-      idPais:1,
-      nombreCiudad:'Cali'
-    },
-    {
-      idCiudad:3,
-      idPais:1,
-      nombreCiudad:'Manizalez'
-    },
-    {
-      idCiudad:4,
-      idPais:2,
-      nombreCiudad:'Caracas'
-    },
-    {
-      idCiudad:5,
-      idPais:2,
-      nombreCiudad:'Maracaibo'
-    },
-    {
-      idCiudad:6,
-      idPais:3,
-      nombreCiudad:'San Miguelito'
-    },
-    {
-      idCiudad:7,
-      idPais:3,
-      nombreCiudad:'Tocumen'
-    }
-  ];
-  const dataSalida = [];
-  const resultado = ciudades.find(data => data.idPais == req.params.idPais);
-  dataSalida.push(resultado);
-  //respuesta correcta
-  const salida = {mensaje:"Listado de ciudades",continuar:1,datos:dataSalida}
-  //respuesta de error
-  //const salida = {mensaje:"No hay ciudades para consultar",continuar:0,datos:[]}
-  res.send(salida);
-
-});
-
-
-
-//EMPRESAS
-app.get('/getEmpresas',(req,res)=>{
+//ENDPOINTS EMPRESAS
+app.get('/empresas',(req,res)=>{
   const empresas = [
     {
       idEmpresa:1,
@@ -229,8 +149,7 @@ app.get('/getEmpresas',(req,res)=>{
   const salida = {mensaje:"Lista de empresas",continuar:1,datos:empresas}
   res.send(salida);
 });
-
-app.get('/buscarEmpresa/:busqueda',(req,res)=>{
+app.get('/empresas/:busqueda',(req,res)=>{
   const empresas = [
     {
       idEmpresa:1,
@@ -263,17 +182,17 @@ app.get('/buscarEmpresa/:busqueda',(req,res)=>{
   const salida = {mensaje:"Lista de empresas encontradas",continuar:1,datos:empresas}
   res.send(salida);
 });
-app.post('/guardaEmpresa',(req,res)=>{
+app.post('/empresas',(req,res)=>{
   console.log(req.body);
   const salida = {mensaje:"La empresa se ha agregado de manera exitosa",continuar:1,datos:[]}
   res.send(salida);
 });
-app.patch('/editaEmpresa',(req,res)=>{
+app.put('/empresas',(req,res)=>{
   console.log(req.body);
   const salida = {mensaje:"La empresa se ha editado de manera exitosa",continuar:1,datos:[]}
   res.send(salida);
 });
-app.delete('/eliminaEmpresa/:idUsuario',(req,res)=>{
+app.delete('/empresas/:idUsuario',(req,res)=>{
   //respuesta correcta
   const salida = {mensaje:"La empresa se ha eliminado de manera exitosa",continuar:1,datos:[]}
   //respuesta de error
@@ -283,8 +202,8 @@ app.delete('/eliminaEmpresa/:idUsuario',(req,res)=>{
 
 
 
-//ADMINISTRACIÓN DE CIUDADES
-app.get('/buscarCiudades/:busqueda',async (req,res) => {
+// ENDPOINTS ADMINISTRACIÓN DE CIUDADES
+app.get('/ciudades/palabraClave/:busqueda',async (req,res) => {
 
   const ciudades = [
     {
@@ -302,19 +221,66 @@ app.get('/buscarCiudades/:busqueda',async (req,res) => {
   //const salida = {mensaje:"No hay ciudades con la busqueda realizada",continuar:0,datos:[]}
   res.send(salida);
 });
+//listado de ciudades por país
+app.get('/ciudades/porPais/:idPais',(req,res)=>{
+  const ciudades = [
+    {
+      idCiudad:1,
+      idPais:1,
+      nombreCiudad:'Bogotá'
+    },
+    {
+      idCiudad:2,
+      idPais:1,
+      nombreCiudad:'Cali'
+    },
+    {
+      idCiudad:3,
+      idPais:1,
+      nombreCiudad:'Manizalez'
+    },
+    {
+      idCiudad:4,
+      idPais:2,
+      nombreCiudad:'Caracas'
+    },
+    {
+      idCiudad:5,
+      idPais:2,
+      nombreCiudad:'Maracaibo'
+    },
+    {
+      idCiudad:6,
+      idPais:3,
+      nombreCiudad:'San Miguelito'
+    },
+    {
+      idCiudad:7,
+      idPais:3,
+      nombreCiudad:'Tocumen'
+    }
+  ];
+  const dataSalida = [];
+  const resultado = ciudades.find(data => data.idPais == req.params.idPais);
+  dataSalida.push(resultado);
+  //respuesta correcta
+  const salida = {mensaje:"Listado de ciudades",continuar:1,datos:dataSalida}
+  //respuesta de error
+  //const salida = {mensaje:"No hay ciudades para consultar",continuar:0,datos:[]}
+  res.send(salida);
 
-
-app.post('/guardaCiudad',(req,res)=>{
+});
+app.post('/ciudades',(req,res)=>{
   console.log(req.body);
   const salida = {mensaje:"La ciudad se ha agregado de manera exitosa",continuar:1,datos:[]}
   res.send(salida);
 });
-app.patch('/editaCiudad',(req,res)=>{
+app.put('/ciudades',(req,res)=>{
   console.log(req.body);
   const salida = {mensaje:"La ciudad se ha editado de manera exitosa",continuar:1,datos:[]}
   res.send(salida);
 });
-app.delete('/eliminaCiudad/:idCiudad',(req,res)=>{
+app.delete('/ciudades/:idCiudad',(req,res)=>{
   //respuesta correcta
   const salida = {mensaje:"La ciudad se ha eliminado de manera exitosa",continuar:1,datos:[]}
   //respuesta de error
@@ -322,11 +288,65 @@ app.delete('/eliminaCiudad/:idCiudad',(req,res)=>{
   res.send(salida);
 });
 
+//ENDPOINTS ADMINISTRACIÓN DE PAISES
+app.get('/paises',(req,res)=>{
+  const paises = [
+    {
+      idPais:1,
+      nombrePais:'Colombia'
+    },
+    {
+      idPais:2,
+      nombrePais:'Venezuela'
+    },
+    {
+      idPais:3,
+      nombrePais:'Panamá'
+    }
+  ];
 
+  //respuesta correcta
+  const salida = {mensaje:"Listado de paises",continuar:1,datos:paises}
+  //respuesta de error
+  //const salida = {mensaje:"No hay paises para consultar",continuar:0,datos:[]}
+  res.send(salida);
 
+});
+app.get('/paises/:busqueda',async (req,res) => {
+
+  const ciudades = [
+    {
+      idPais:1,
+      nombrePais:'Colombia'
+    }
+  ];
+
+  //respuesta correcta
+  const salida = {mensaje:"País encontrado con la búsqueda",continuar:1,datos:ciudades}
+  //respuesta incorecta
+  //const salida = {mensaje:"No hay ciudades con la busqueda realizada",continuar:0,datos:[]}
+  res.send(salida);
+});
+app.post('/paises',(req,res)=>{
+  console.log(req.body);
+  const salida = {mensaje:"El país se ha agregado de manera exitosa",continuar:1,datos:[]}
+  res.send(salida);
+});
+app.put('/paises',(req,res)=>{
+  console.log(req.body);
+  const salida = {mensaje:"La país se ha editado de manera exitosa",continuar:1,datos:[]}
+  res.send(salida);
+});
+app.delete('/paises/:idPais',(req,res)=>{
+  //respuesta correcta
+  const salida = {mensaje:"La país se ha eliminado de manera exitosa",continuar:1,datos:[]}
+  //respuesta de error
+  //const salida = {mensaje:"El país no se ha podido eliminar, intente de nuevo más tarde",continuar:0,datos:[]}
+  res.send(salida);
+});
 
 //lista de menus
-app.get('/getMenu/:idUsuario',(req, res)=>{
+app.get('/menu/:idUsuario',(req, res)=>{
     const dataMenu = [
         {
           idGrupo:"0",
@@ -363,7 +383,6 @@ app.get('/getMenu/:idUsuario',(req, res)=>{
               ]
         },
         {
-          
           idGrupo:"3",
           nombreGrupo:"Grupo 3",
           icono:"fa fa-gear",
@@ -383,7 +402,8 @@ app.get('/getMenu/:idUsuario',(req, res)=>{
           opciones:[
             {idModulo:15,nombre:"Crear cajas",icono:"fa fa-gear",visibleAlIniciar:0,activa:0},
             {idModulo:16,nombre:"Cajas seguros",icono:"fa fa-gear",visibleAlIniciar:0,activa:0},
-            {idModulo:18,nombre:"Gestión ciudades",icono:"fa fa-gear",visibleAlIniciar:0,activa:0}
+            {idModulo:18,nombre:"Gestión ciudades",icono:"fa fa-gear",visibleAlIniciar:0,activa:0},
+            {idModulo:19,nombre:"Gestión paises",icono:"fa fa-gear",visibleAlIniciar:0,activa:0}
           ]
         }
       ];
@@ -394,10 +414,7 @@ app.get('/getMenu/:idUsuario',(req, res)=>{
 
 
 
-// const server = https.createServer(options, app);
-
-// server.listen(3000, () => { console.log('listening on 3000') });
-
+//SALIDA
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, function () {
     console.log('CORS-enabled web server listening on port 80')

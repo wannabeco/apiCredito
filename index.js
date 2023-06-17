@@ -24,7 +24,7 @@ app.post('/login',(req,res)=>{
 
 //USUARIOS
 app.get('/buscaUsuarios/:busqueda',(req,res)=>{
-  const salida = {mensaje:"Lista de usuarios encontrados",continuar:1,datos:[{idUsuario:1,nombres:"Farez Prieto",idPerfil:1,nombrePerfil:"Administrador",codigoAcceso:"2132"}]}
+  const salida = {mensaje:"Lista de usuarios encontrados",continuar:1,datos:[{idUsuario:1,nombres:"Farez Prieto",idPerfil:1,nombrePerfil:"Administrador",idEmpresa:1,codigoAcceso:"2132"}]}
   res.send(salida);
 });
 app.post('/guardaUsuarios',(req,res)=>{
@@ -68,6 +68,28 @@ app.get('/getTiposDocumento',(req,res)=>{
   //const salida = {mensaje:"El usuario no se ha podido eliminar, intente de nuevo más tarde",continuar:0,datos:[]}
   res.send(salida);
 });
+
+//listado de persiles
+app.get('/getPerfiles',(req,res)=>{
+
+  //lista de documentos
+  const tiposDocumento = [
+    {
+      idPerfil:1,
+      nombrePerfil:'Administrador'
+    },
+    {
+      idPerfil:2,
+      nombrePerfil:'Vendedor'
+    },
+  ]
+  //respuesta correcta
+  const salida = {mensaje:"Listado de tipos de documento",continuar:1,datos:tiposDocumento}
+  //respuesta de error
+  //const salida = {mensaje:"El usuario no se ha podido eliminar, intente de nuevo más tarde",continuar:0,datos:[]}
+  res.send(salida);
+});
+
 
 //listado de paises
 app.get('/getPaises',(req,res)=>{

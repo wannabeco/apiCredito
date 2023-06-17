@@ -376,6 +376,7 @@ app.get('/getMenu/:idUsuario',(req, res)=>{
 
 // server.listen(3000, () => { console.log('listening on 3000') });
 
-app.listen(8080, function () {
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, function () {
     console.log('CORS-enabled web server listening on port 80')
 })

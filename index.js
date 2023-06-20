@@ -16,12 +16,53 @@ app.use(express.text());
 
 //LOGIN
 app.get('/login/:usuario/:clave',(req,res)=>{
-    const salida = {mensaje:"Usuario conectado con exito",continuar:1,datos:{idUsuario:1,nombre:"Farez Prieto",email:"kyo20052@gmail.com"}}
+    const dataLogin = {
+      usua_idusua:1,
+      usua_nombre:'Jhon Puerto',
+      usua_codigo:'12345',
+      usua_imei:'2323233',
+      usua_idperf:'1',
+      usua_clave:'',
+      usua_idempr:1,
+      usua_idven:1,
+      usua_estado:1,
+      usua_vigen:'',
+      usua_facven:'1',
+      usua_idempre:1,
+      usua_version:1,
+      usua_fechaf:'2023-02-01',
+      usua_pass:'',
+      usua_acceso:'',
+      usua_opc:'',
+      usua_chpwd:''
+    }
+    const salida = {mensaje:"Usuario conectado con exito",continuar:1,datos:dataLogin}
     res.send(salida);
 });
 //USUARIOS
 app.get('/usuarios/:busqueda',(req,res)=>{
-  const salida = {mensaje:"Lista de usuarios encontrados",continuar:1,datos:[{idUsuario:1,nombres:"Farez Prieto",idPerfil:1,nombrePerfil:"Administrador",idEmpresa:1,codigoAcceso:"2132",fechaVencimiento:"2023-06-16"}]}
+  const dataUsuario = [{
+    usua_idusua:1,
+    usua_nombre:'Jhon Puerto',
+    usua_codigo:'12345',
+    usua_imei:'2323233',
+    usua_idperf:'1',
+    perf_nombre:'Admin',
+    usua_clave:'',
+    usua_idempr:1,
+    usua_idven:1,
+    usua_estado:1,
+    usua_vigen:'',
+    usua_facven:'1',
+    usua_idempre:1,
+    usua_version:1,
+    usua_fechaf:'2023-02-01',
+    usua_pass:'',
+    usua_acceso:'',
+    usua_opc:'',
+    usua_chpwd:''
+  }];
+  const salida = {mensaje:"Lista de usuarios encontrados",continuar:1,datos:dataUsuario}
   res.send(salida);
 });
 app.post('/usuarios',(req,res)=>{
@@ -51,13 +92,15 @@ app.get('/tiposDocumento',(req,res)=>{
   //lista de documentos
   const tiposDocumento = [
     {
-      idTipoDocumento:1,
-      nombreTipoDocumento:'Cédula'
+      tido_idtido:1,
+      tido_nombre:'Cédula',
+      tido_siigo:'CC'
     },
     {
-      idTipoDocumento:2,
-      nombreTipoDocumento:'Pasaporte'
-    },
+      tido_idtido:2,
+      tido_nombre:'Pasaporte',
+      tido_siigo:'PA'
+    }
   ]
   //respuesta correcta
   const salida = {mensaje:"Listado de tipos de documento",continuar:1,datos:tiposDocumento}
@@ -71,12 +114,14 @@ app.get('/perfiles',(req,res)=>{
   //lista de documentos
   const tiposDocumento = [
     {
-      idPerfil:1,
-      nombrePerfil:'Administrador'
+      perf_idperf:1,
+      perf_nombre:'Administrador',
+      perf_descri:'Administrador del sistema'
     },
     {
-      idPerfil:2,
-      nombrePerfil:'Vendedor'
+      perf_idperf:2,
+      perf_nombre:'Vendedor',
+      perf_descri:'Vendedor del sistema'
     },
   ]
   //respuesta correcta
@@ -91,59 +136,87 @@ app.get('/perfiles',(req,res)=>{
 app.get('/empresas',(req,res)=>{
   const empresas = [
     {
-      idEmpresa:1,
-      razonSocial:"Empresa 1",
-      nombreRepresentante:"Jhon",
-      apellidosRepresentante:"Puerto",
-      pais:1,
-      ciudad:2,
-      estado:"1",
-      tipoDocumento:"1",
-      documento:"1234456",
-      fechaCorte:"2023-01-01",
-      contabiliza:"1",
-      manejaIva:"1",
-      empresaAsignada:"1",
-      comision:"1",
-      direccion:"Calle falsa 123",
-      precioUnidad:"20000",
-      codigoArea:"057",
-      movil:"311478900",
-      emailEmpresa:"jhonato@wannabe.com.co",
-      generarContrato:1,
-      numeroContrato:"CXC0000",
-      fechaContrato:"2023-01-01",
-      codigoAccesoEmpresa:"bbbbb",
-      contrasenaEmpresa:"",
-      codigoAccesoR:""
-      },
-      {
-        idEmpresa:2,
-        razonSocial:"Empresa 2",
-        nombreRepresentante:"Jhon",
-        apellidosRepresentante:"Puerto",
-        pais:2,
-        ciudad:4,
-        estado:"1",
-        tipoDocumento:"1",
-        documento:"1234456",
-        fechaCorte:"2023-01-01",
-        contabiliza:"1",
-        manejaIva:"1",
-        empresaAsignada:"1",
-        comision:"1",
-        direccion:"Calle falsa 123",
-        precioUnidad:"20000",
-        codigoArea:"057",
-        movil:"311478900",
-        emailEmpresa:"jhonato@wannabe.com.co",
-        generarContrato:1,
-        numeroContrato:"CXC0000",
-        fechaContrato:"2023-01-01",
-        codigoAccesoEmpresa:"aaaaa",
-        contrasenaEmpresa:"",
-        codigoAccesoR:""
-      }
+      empr_idempr:1,
+      empr_razon:'Wannabe Digital',
+      empr_tipodocume:1,
+      empr_docume:'111111111',
+      empr_rutalo:'',
+      empr_colorhe:'',
+      empr_colorme:'',
+      empr_colorbtn:'',
+      empr_digive:'',
+      empr_telefo:'',
+      empr_movil:'311455677',
+      empr_email:'desarrollo@wannabe.com.co',
+      empr_nombres:'Farez',
+      empr_apellidos:'Prieto',
+      empr_idtido:1,
+      empr_direc:'Calle falsa 1233',
+      empr_estado:1,
+      empr_idpais:1,
+      empr_idciud:1,
+      empr_caja:'',
+      empr_aviso:'',
+      empr_contrato:'aaaaa',
+      empr_num:'aaaa',
+      empr_fecha:'2023-12-01',
+      empr_rutacon:'',
+      empr_logo:'',
+      empr_idrefe:1,
+      empr_iva:1,
+      empr_idrazon:1,
+      empr_codarea:'04',
+      empr_print:'',
+      empr_send:'',
+      empr_preciounidad:'20000',
+      empr_fechacontrato:'2022-01-01',
+      empr_generarContrato:1,
+      empr_comision:1,
+      empr_codigoAccesoEmpresa:'',
+      empr_contrasenaEmpresa:'',
+      empr_codigoAccesoR:''
+    },
+    {
+      empr_idempr:1,
+      empr_razon:'Jhon Programmer',
+      empr_tipodocume:1,
+      empr_docume:'111111111',
+      empr_rutalo:'',
+      empr_colorhe:'',
+      empr_colorme:'',
+      empr_colorbtn:'',
+      empr_digive:'',
+      empr_telefo:'',
+      empr_movil:'311455677',
+      empr_email:'desarrollo@jp.com.co',
+      empr_nombres:'Jhon',
+      empr_apellidos:'Puerto',
+      empr_idtido:1,
+      empr_direc:'Calle falsa 1233',
+      empr_estado:1,
+      empr_idpais:1,
+      empr_idciud:1,
+      empr_caja:'',
+      empr_aviso:'',
+      empr_contrato:'aaaaa',
+      empr_num:'aaaa',
+      empr_fecha:'2023-12-01',
+      empr_rutacon:'',
+      empr_logo:'',
+      empr_idrefe:1,
+      empr_iva:1,
+      empr_idrazon:1,
+      empr_codarea:'04',
+      empr_print:'',
+      empr_send:'',
+      empr_preciounidad:'20000',
+      empr_fechacontrato:'2022-01-01',
+      empr_generarContrato:1,
+      empr_comision:1,
+      empr_codigoAccesoEmpresa:'',
+      empr_contrasenaEmpresa:'',
+      empr_codigoAccesoR:''
+    }
   ];
 
   const salida = {mensaje:"Lista de empresas",continuar:1,datos:empresas}
@@ -152,32 +225,46 @@ app.get('/empresas',(req,res)=>{
 app.get('/empresas/:busqueda',(req,res)=>{
   const empresas = [
     {
-      idEmpresa:1,
-      razonSocial:"Prueba",
-      nombreRepresentante:"Jhon",
-      apellidosRepresentante:"Puerto",
-      pais:"1",
-      ciudad:"1",
-      estado:"1",
-      tipoDocumento:1,
-      documento:"1234456",
-      fechaCorte:"2023-01-01",
-      contabiliza:"1",
-      manejaIva:"0",
-      empresaAsignada:1,
-      comision:"1",
-      direccion:"Calle falsa 123",
-      precioUnidad:"20000",
-      codigoArea:"057",
-      movil:"311478900",
-      emailEmpresa:"jhonato@wannabe.com.co",
-      generarContrato:1,
-      numeroContrato:"CXC0000",
-      fechaContrato:"2023-01-01",
-      codigoAccesoEmpresa:"aaaaa",
-      contrasenaEmpresa:"",
-      codigoAccesoR:""
-      }
+      empr_idempr:1,
+      empr_razon:'Jhon Programmer',
+      empr_tipodocume:1,
+      empr_docume:'111111111',
+      empr_rutalo:'',
+      empr_colorhe:'',
+      empr_colorme:'',
+      empr_colorbtn:'',
+      empr_digive:'',
+      empr_telefo:'',
+      empr_movil:'311455677',
+      empr_email:'desarrollo@jp.com.co',
+      empr_nombres:'Jhon',
+      empr_apellidos:'Puerto',
+      empr_idtido:1,
+      empr_direc:'Calle falsa 1233',
+      empr_estado:1,
+      empr_idpais:1,
+      empr_idciud:1,
+      empr_caja:'',
+      empr_aviso:'',
+      empr_contrato:'aaaaa',
+      empr_num:'aaaa',
+      empr_fecha:'2023-12-01',
+      empr_rutacon:'',
+      empr_logo:'',
+      empr_idrefe:1,
+      empr_iva:1,
+      empr_idrazon:1,
+      empr_codarea:'04',
+      empr_print:'',
+      empr_send:'',
+      empr_preciounidad:'20000',
+      empr_fechacontrato:'2022-01-01',
+      empr_generarContrato:1,
+      empr_comision:1,
+      empr_codigoAccesoEmpresa:'',
+      empr_contrasenaEmpresa:'',
+      empr_codigoAccesoR:''
+    }
   ];
   const salida = {mensaje:"Lista de empresas encontradas",continuar:1,datos:empresas}
   res.send(salida);
@@ -207,11 +294,10 @@ app.get('/ciudades/palabraClave/:busqueda',async (req,res) => {
 
   const ciudades = [
     {
-      idCiudad:1,
-      idPais:1,
-      nombrePais:'Colombia',
-      nombreCiudad:'Bogotá',
-      gmt:'Hola Mundo'
+      ciud_idciud:1,
+      ciud_idpais:1,
+      ciud_nombre:'Bogotá',
+      ciud_gtm:'Bo000'
     }
   ];
 
@@ -225,39 +311,46 @@ app.get('/ciudades/palabraClave/:busqueda',async (req,res) => {
 app.get('/ciudades/porPais/:idPais',(req,res)=>{
   const ciudades = [
     {
-      idCiudad:1,
-      idPais:1,
-      nombreCiudad:'Bogotá'
+      ciud_idciud:1,
+      ciud_idpais:1,
+      ciud_nombre:'Bogotá',
+      ciud_gtm:'Bo000'
     },
     {
-      idCiudad:2,
-      idPais:1,
-      nombreCiudad:'Cali'
+      ciud_idciud:2,
+      ciud_idpais:1,
+      ciud_nombre:'Cali',
+      ciud_gtm:'000'
     },
     {
-      idCiudad:3,
-      idPais:1,
-      nombreCiudad:'Manizalez'
+      ciud_idciud:3,
+      ciud_idpais:1,
+      ciud_nombre:'Manizalez',
+      ciud_gtm:'Maniz000'
     },
     {
-      idCiudad:4,
-      idPais:2,
-      nombreCiudad:'Caracas'
+      ciud_idciud:4,
+      ciud_idpais:2,
+      ciud_nombre:'Caracas',
+      ciud_gtm:'Car000'
     },
     {
-      idCiudad:5,
-      idPais:2,
-      nombreCiudad:'Maracaibo'
+      ciud_idciud:5,
+      ciud_idpais:2,
+      ciud_nombre:'Maracaibo',
+      ciud_gtm:'Marac000'
     },
     {
-      idCiudad:6,
-      idPais:3,
-      nombreCiudad:'San Miguelito'
+      ciud_idciud:6,
+      ciud_idpais:3,
+      ciud_nombre:'San Miguelito',
+      ciud_gtm:'San Migue000'
     },
     {
-      idCiudad:7,
-      idPais:3,
-      nombreCiudad:'Tocumen'
+      ciud_idciud:7,
+      ciud_idpais:3,
+      ciud_nombre:'Tocumen',
+      ciud_gtm:'Toc000'
     }
   ];
   const dataSalida = [];
@@ -292,16 +385,22 @@ app.delete('/ciudades/:idCiudad',(req,res)=>{
 app.get('/paises',(req,res)=>{
   const paises = [
     {
-      idPais:1,
-      nombrePais:'Colombia'
+      pais_idpais:1,
+      pais_nombre:"Colombia",
+      pais_codarea:"057",
+      pais_convenio:""
     },
     {
-      idPais:2,
-      nombrePais:'Venezuela'
+      pais_idpais:2,
+      pais_nombre:"Venezuela",
+      pais_codarea:"057",
+      pais_convenio:""
     },
     {
-      idPais:3,
-      nombrePais:'Panamá'
+      pais_idpais:3,
+      pais_nombre:"Panamá",
+      pais_codarea:"057",
+      pais_convenio:""
     }
   ];
 
@@ -314,15 +413,17 @@ app.get('/paises',(req,res)=>{
 });
 app.get('/paises/:busqueda',async (req,res) => {
 
-  const ciudades = [
+  const paises = [
     {
-      idPais:1,
-      nombrePais:'Colombia'
+      pais_idpais:1,
+      pais_nombre:"Colombia",
+      pais_codarea:"057",
+      pais_convenio:""
     }
   ];
 
   //respuesta correcta
-  const salida = {mensaje:"País encontrado con la búsqueda",continuar:1,datos:ciudades}
+  const salida = {mensaje:"País encontrado con la búsqueda",continuar:1,datos:paises}
   //respuesta incorecta
   //const salida = {mensaje:"No hay ciudades con la busqueda realizada",continuar:0,datos:[]}
   res.send(salida);
